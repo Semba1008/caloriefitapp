@@ -12,7 +12,7 @@ export function StrengthCompleteToggle({ completed }: { completed: boolean }) {
   useEffect(() => setChecked(completed), [completed]);
 
   return (
-    <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+    <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
       <input
         type="checkbox"
         checked={checked}
@@ -29,7 +29,7 @@ export function StrengthCompleteToggle({ completed }: { completed: boolean }) {
             router.refresh();
           });
         }}
-        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+        className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
       />
       完了
     </label>

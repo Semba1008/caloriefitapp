@@ -24,7 +24,7 @@ export default async function MonthHistoryPage({
     <div className="flex flex-1 flex-col">
       <Nav />
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-        <h1 className="mb-4 text-lg font-semibold text-gray-900">月間履歴</h1>
+        <h1 className="mb-5 text-2xl font-bold tracking-tight text-slate-900">月間履歴</h1>
         <MonthView monthStart={start} days={days} summary={summary} />
       </main>
     </div>

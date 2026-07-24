@@ -23,9 +23,12 @@ export default async function DashboardPage() {
     <div className="flex flex-1 flex-col">
       <Nav />
       <main className="mx-auto w-full max-w-3xl flex-1 space-y-6 px-4 py-8">
-        <h1 className="text-lg font-semibold text-gray-900">
-          今日は{date.getUTCMonth() + 1}月{date.getUTCDate()}日（{weekdayLabel(date)}）です
-        </h1>
+        <div>
+          <p className="text-sm font-medium text-indigo-600">今日のコンディション</p>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+            {date.getUTCMonth() + 1}月{date.getUTCDate()}日（{weekdayLabel(date)}）
+          </h1>
+        </div>
 
         <CalorieSummaryCard
           caloriesIn={log?.caloriesIn}

@@ -35,7 +35,7 @@ export function ProfileForm({ defaults, submitLabel }: { defaults: Defaults; sub
   return (
     <form action={formAction} className="space-y-4">
       {state && !state.ok && (
-        <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">{state.error}</p>
+        <p className="rounded-xl bg-rose-50 p-3 text-sm text-rose-700">{state.error}</p>
       )}
 
       <div className="grid grid-cols-2 gap-4">

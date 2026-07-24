@@ -28,7 +28,7 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+      {error && <p className="rounded-xl bg-rose-50 p-3 text-sm text-rose-700">{error}</p>}
       <div>
         <Label htmlFor="name">お名前（任意）</Label>
         <Input id="name" name="name" type="text" autoComplete="name" />

@@ -17,25 +17,25 @@ export function WeekView({
 
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-5 flex items-center justify-between">
         <Link
           href={`/history/week?weekStart=${prevWeekStart}`}
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50"
+          className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-slate-900/5 transition hover:bg-slate-50"
         >
           ← 前の週
         </Link>
-        <p className="text-sm font-medium text-gray-700">
+        <p className="text-sm font-semibold text-slate-700">
           {formatDateParam(start)} 〜 {formatDateParam(end)}
         </p>
         <Link
           href={`/history/week?weekStart=${nextWeekStart}`}
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50"
+          className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-slate-900/5 transition hover:bg-slate-50"
         >
           次の週 →
         </Link>
       </div>
 
-      <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <SummaryTile label="合計摂取カロリー" value={`${summary.totalCaloriesIn} kcal`} />
         <SummaryTile label="平均摂取カロリー" value={`${summary.avgCaloriesIn} kcal`} />
         <SummaryTile label="合計運動目標" value={`${summary.totalTargetBurnKcal} kcal`} />
@@ -49,26 +49,35 @@ export function WeekView({
         {days.map((day) => (
           <div
             key={formatDateParam(day.date)}
-            className="flex items-center justify-between rounded-md border border-gray-200 bg-white px-4 py-3"
+            className="flex items-center justify-between rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-900/5"
           >
-            <div className="w-24 text-sm font-medium text-gray-700">
+            <div className="w-24 text-sm font-semibold text-slate-700">
               {day.date.getUTCMonth() + 1}/{day.date.getUTCDate()} ({weekdayLabel(day.date)})
             </div>
-            <div className="flex-1 text-sm text-gray-600">
+            <div className="flex-1 text-sm text-slate-500">
               {day.log ? (
                 <>
                   摂取 {day.log.caloriesIn} kcal ・ 運動目標 {day.log.targetBurnKcal} kcal
                 </>
               ) : (
-                <span className="text-gray-400">未記録</span>
+                <span className="text-slate-300">未記録</span>
               )}
             </div>
             <div className="w-32 text-right text-sm">
               {day.isRestDay ? (
-                <span className="text-gray-400">休養日</span>
+                <span className="text-slate-300">休養日</span>
               ) : (
-                <span className={day.log?.strengthCompleted ? "text-green-600" : "text-gray-400"}>
-                  {day.plannedBodyPartLabel} {day.log?.strengthCompleted ? "✓" : ""}
+                <span
+                  className={
+                    day.log?.strengthCompleted
+                      ? "inline-flex items-center gap-1 font-medium text-emerald-600"
+                      : "text-slate-400"
+                  }
+                >
+                  {day.plannedBodyPartLabel}
+                  {day.log?.strengthCompleted && (
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  )}
                 </span>
               )}
             </div>
@@ -81,9 +90,9 @@ export function WeekView({
 
 function SummaryTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-gray-200 bg-white p-3 text-center">
-      <p className="text-xs text-gray-500">{label}</p>
-      <p className="mt-1 text-lg font-bold text-gray-900">{value}</p>
+    <div className="rounded-xl bg-white p-3.5 text-center shadow-sm ring-1 ring-slate-900/5">
+      <p className="text-xs text-slate-500">{label}</p>
+      <p className="mt-1 text-lg font-bold text-slate-900">{value}</p>
     </div>
   );
 }

@@ -25,25 +25,25 @@ export function MonthView({
 
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-5 flex items-center justify-between">
         <Link
           href={`/history/month?month=${prevMonth}`}
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50"
+          className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-slate-900/5 transition hover:bg-slate-50"
         >
           ← 前の月
         </Link>
-        <p className="text-sm font-medium text-gray-700">
+        <p className="text-sm font-semibold text-slate-700">
           {monthStart.getUTCFullYear()}年{monthStart.getUTCMonth() + 1}月
         </p>
         <Link
           href={`/history/month?month=${nextMonth}`}
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50"
+          className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-slate-600 shadow-sm ring-1 ring-slate-900/5 transition hover:bg-slate-50"
         >
           次の月 →
         </Link>
       </div>
 
-      <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <SummaryTile label="合計摂取カロリー" value={`${summary.totalCaloriesIn} kcal`} />
         <SummaryTile label="平均摂取カロリー" value={`${summary.avgCaloriesIn} kcal`} />
         <SummaryTile label="合計運動目標" value={`${summary.totalTargetBurnKcal} kcal`} />
@@ -53,7 +53,7 @@ export function MonthView({
         />
       </div>
 
-      <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium text-gray-500">
+      <div className="grid grid-cols-7 gap-1.5 text-center text-xs font-medium text-slate-400">
         {WEEKDAY_HEADER.map((label) => (
           <div key={label} className="py-1">
             {label}
@@ -61,15 +61,15 @@ export function MonthView({
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 gap-1.5">
         {Array.from({ length: leadingPad }).map((_, i) => (
-          <div key={`lead-${i}`} className="min-h-20 rounded-md bg-gray-50" />
+          <div key={`lead-${i}`} className="min-h-20 rounded-xl bg-slate-100/60" />
         ))}
         {days.map((day) => (
           <DayCell key={day.date.toISOString()} day={day} />
         ))}
         {Array.from({ length: trailingPad }).map((_, i) => (
-          <div key={`trail-${i}`} className="min-h-20 rounded-md bg-gray-50" />
+          <div key={`trail-${i}`} className="min-h-20 rounded-xl bg-slate-100/60" />
         ))}
       </div>
     </div>
@@ -78,17 +78,17 @@ export function MonthView({
 
 function DayCell({ day }: { day: HistoryDay }) {
   return (
-    <div className="min-h-20 rounded-md border border-gray-200 bg-white p-1.5 text-left">
-      <p className="text-xs font-medium text-gray-700">{day.date.getUTCDate()}</p>
+    <div className="min-h-20 rounded-xl bg-white p-1.5 text-left shadow-sm ring-1 ring-slate-900/5">
+      <p className="text-xs font-semibold text-slate-700">{day.date.getUTCDate()}</p>
       {day.log && (
-        <p className="mt-1 text-[11px] text-gray-600">{day.log.caloriesIn}kcal</p>
+        <p className="mt-1 text-[11px] text-slate-500">{day.log.caloriesIn}kcal</p>
       )}
       {!day.isRestDay && day.isFuture && (
-        <p className="mt-0.5 text-[11px] text-gray-400">予定</p>
+        <p className="mt-0.5 text-[11px] text-slate-300">予定</p>
       )}
       {!day.isRestDay && !day.isFuture && (
-        <p className={`mt-0.5 text-[11px] ${day.log?.strengthCompleted ? "text-green-600" : "text-gray-400"}`}>
-          {day.log?.strengthCompleted ? "✓ 完了" : "未完了"}
+        <p className={`mt-0.5 text-[11px] font-medium ${day.log?.strengthCompleted ? "text-emerald-600" : "text-slate-300"}`}>
+          {day.log?.strengthCompleted ? "完了" : "未完了"}
         </p>
       )}
     </div>
@@ -97,9 +97,9 @@ function DayCell({ day }: { day: HistoryDay }) {
 
 function SummaryTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-gray-200 bg-white p-3 text-center">
-      <p className="text-xs text-gray-500">{label}</p>
-      <p className="mt-1 text-lg font-bold text-gray-900">{value}</p>
+    <div className="rounded-xl bg-white p-3.5 text-center shadow-sm ring-1 ring-slate-900/5">
+      <p className="text-xs text-slate-500">{label}</p>
+      <p className="mt-1 text-lg font-bold text-slate-900">{value}</p>
     </div>
   );
 }
