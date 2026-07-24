@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Sex {
+  MALE
+  FEMALE
+}
+
+enum ActivityLevel {
+  SEDENTARY
+  LIGHT
+  MODERATE
+  ACTIVE
+  VERY_ACTIVE
+}
+
+enum Goal {
+  LOSE
+  MAINTAIN
+  GAIN
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  heightCm          Float?
+  weightKg          Float?
+  age               Int?
+  sex               Sex?
+  activityLevel     ActivityLevel?
+  goal              Goal             @default(MAINTAIN)
+  trainingFrequency Int              @default(3)
+  experienceLevel   ExperienceLevel  @default(BEGINNER)
+
+  dailyLogs DailyLog[]
+}
+
+model DailyLog {
+  id     String   @id @default(cuid())
+  userId String
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date   DateTime
+
+  caloriesIn Int
+
+  bmr            Float
+  tdee           Float
+  targetBurnKcal Float
+
+  cardioMinutes    Float?
+  cardioInclinePct Float?
+  cardioSpeedKmh   Float?
+
+  strengthBodyPart  String?
+  strengthExercises String?
+  strengthCompleted Boolean @default(false)
+
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@index([userId, date])
+}
